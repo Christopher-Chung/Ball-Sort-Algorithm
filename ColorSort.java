@@ -22,7 +22,7 @@ class State{
     state = new int[length][4];
   }
 
-  public void printState(){
+  private void printState(){
     for (int i = 0; i < state.length; i ++){
       for (int j = 0; j < 4; j ++){
         System.out.print(state[i][j]);
@@ -31,7 +31,7 @@ class State{
     }
   }
 
-  public int getEmptySpaces(int target){
+  private int getEmptySpaces(int target){
     //Returns 0 for all full, 1 for one empty space, 4 for all empty spaces
     int result = 0;
     while (result < 4 && state[target][result] == 0){
@@ -40,16 +40,16 @@ class State{
     return result;
   }
 
-  public boolean isEmpty(int target){
+  private boolean isEmpty(int target){
     return (getEmptySpaces(target) == 4);
   }
 
-  public int getTopColor(int target){
+  private int getTopColor(int target){
     if (isEmpty(target)) return 0;
     return state[target][getEmptySpaces(target)];
   }
 
-  public int maxVol(int from){
+  private int maxVol(int from){
     int sp = getEmptySpaces(from);
     if (sp == 4) return 0;
     int result = 1;
@@ -59,7 +59,7 @@ class State{
     return result;
   }
 
-  public boolean checkLegalMove(Move m){
+  private boolean checkLegalMove(Move m){
     //From tube empty
     if (isEmpty(m.from)) return false;
     //Can't repeat state
@@ -69,7 +69,7 @@ class State{
     return true;
   }
 
-  public State executeMove(Move m){
+  private State executeMove(Move m){
     State newstate = new State(state.length);
     for (int i = 0; i < state.length; i ++){
       for (int j = 0; j < 4; j ++){
@@ -86,7 +86,7 @@ class State{
     return newstate;
   }
 
-  public Vector<Move> moveList(){
+  private Vector<Move> moveList(){
     Vector<Move> v = new Vector<Move>();
     for (int i = 0; i < state.length; i ++){
       for (int j = 0; j < state.length; j ++){
@@ -99,7 +99,7 @@ class State{
     return v;
   }
 
-  public boolean isSolved(){
+  private boolean isSolved(){
     for (int i = 0; i < state.length; i ++){
       if (maxVol(i) != 4 && getEmptySpaces(i) != 4) return false;
     }
